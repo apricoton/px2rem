@@ -4,6 +4,7 @@ import (
     "fmt"
     "flag"
     "strconv"
+    "github.com/atotto/clipboard"
 )
 
 func main() {
@@ -15,6 +16,10 @@ func main() {
             rem := target / *basesize
             if px, pxerr := strconv.Atoi(flag.Arg(0)); pxerr == nil {
                 fmt.Println(createText(px, rem))
+                
+                if err := clipboard.WriteAll(strconv.FormatFloat(rem, 'G', -1, 64) + "rem"); err != nil {
+                    panic(err)
+                }
             }
         }
     } else {
